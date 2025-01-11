@@ -11,39 +11,39 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.send_message(message.chat.id, "Welcome to the bot!")
+    bot.send_message(message.chat.id, "Добро пожаловать в бот!")
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     chat_id = message.chat.id
     user_input = message.text
 
-    # Prepare the data for the API request
+    # Подготовьте данные для API-запроса
     api_data = {
         "messages": [
             {"role": "system", "content": "Ниже приведена инструкция, описывающая задачу. Напишите ответ, который соответствующим образом завершает запрос.."},
             {"role": "user", "content": user_input}
         ],
         "temperature": 0.7,
-        "max_tokens": 50,
+        "max_tokens": 500,
         "stream": False
     }
 
-    # Make a request to the API
+    # Сделайте запрос к API
     response = requests.post(API_ENDPOINT, json=api_data, headers={"Content-Type": "application/json"})
 
 
     if response.status_code == 200:
-        # Parse the API response
+        # Анализ ответа API
         api_response = json.loads(response.text)
 
-        # Extract the assistant's response from the API response
+        # Извлечь ответ помощника из ответа API
         assistant_response = api_response["choices"][0]["message"]["content"]
 
         #bot.reply_to(message, assistant_response)
         bot.reply_to(message, assistant_response)
     else:
-        bot.reply_to(message, "Sorry, something went wrong with the API request.")
+        bot.reply_to(message, "Извините, что-то пошло не так с запросом API.")
 
 
 if __name__ == "__main__":
