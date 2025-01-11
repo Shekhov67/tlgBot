@@ -21,7 +21,7 @@ def handle_message(message):
     # Prepare the data for the API request
     api_data = {
         "messages": [
-            {"role": "system", "content": "Below is an instruction that describes a task. Write a response that appropriately completes the request."},
+            {"role": "system", "content": "Ниже приведена инструкция, описывающая задачу. Напишите ответ, который соответствующим образом завершает запрос.."},
             {"role": "user", "content": user_input}
         ],
         "temperature": 0.7,
