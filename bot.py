@@ -25,7 +25,7 @@ def handle_message(message):
             {"role": "user", "content": user_input}
         ],
         "temperature": 0.7,
-        "max_tokens": 500,
+        "max_tokens": 8000,
         "stream": False
     }
 
